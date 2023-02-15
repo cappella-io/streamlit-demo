@@ -11,6 +11,7 @@ def inferencer(x, model_type):
     if model_type == "detection":
         model = CNNAutoEncoder()
         model.load_state_dict(torch.load(detection_model_path))
+        model = model.cpu()
 
         rc_loss = model.compute_reconstruction_loss(x)
         if rc_loss <= detection_threshold:
@@ -20,7 +21,7 @@ def inferencer(x, model_type):
     elif model_type == "classification":
         model = CNNClassifier()
         model.load_state_dict(torch.load(classification_model_path))
-
+        model = model.cpu()
         logits = model(x)
         class_samples = logits.argmax(dim=-1).tolist()
         n_samples = len(class_samples)
