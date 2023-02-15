@@ -85,7 +85,7 @@ class AudioProcessor :
         
         return melspec_db_batch
     
-    def process(self, file_path : str) :
+    def process(self, file_path) :
         sig, sr = self.__open_audio_file(file_path)
         return self.__process(sig, sr)
         

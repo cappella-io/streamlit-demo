@@ -49,12 +49,12 @@ class CNNClassifier(nn.Module) :
         )
         
         self.linear = nn.Sequential(
-            nn.Linear(1024, h_fc),
-            nn.LeakyReLU(),
+            nn.Linear(768, h_fc),
+            nn.ReLU(),
             nn.Linear(h_fc, 2 * h_fc),
             nn.GELU(),
             nn.Linear(2 * h_fc, h_fc),
-            nn.LeakyReLU(),
+            nn.ReLU(),
             nn.Linear(h_fc, n_category)
         )
         
