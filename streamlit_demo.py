@@ -5,6 +5,7 @@ import time
 import numpy as np
 from matplotlib import pyplot as plt
 import torchaudio
+import librosa
 from PIL import Image
 
 plt.rcParams['axes.edgecolor'] = '#333F4B'
@@ -37,27 +38,29 @@ col1, col2 = st.columns([2, 1])
 audio_data = col1.file_uploader(label="upload here", type=[
                                 "wav", "mp3"], label_visibility='hidden')
 
-
 if audio_data:
     try:
-        if audio_data.type == "audio/mpeg" :
-            torchaudio.load(audio_data, format = "mp3")
-        else :
-            torchaudio.load(audio_data)
+        if audio_data.type == "audio/mpeg":
+
+            torchaudio.info(audio_data)
+        else:
+
+            torchaudio.info(audio_data)
     except Exception as e:
         print(e)
-        st.error("Uploading failed ! Please check your uploaded audio data source.", icon="🚨")
+        st.error(
+            "Uploading failed ! Please check your uploaded audio data source.", icon="🚨")
         st.image(new_image, use_column_width=True)
         st.stop()
     col2.markdown(" ")
     col2.markdown(" ")
     col2.markdown(" ")
-    col2.success("Uploading successful!",icon="✅")
+    col2.success("Uploading successful!", icon="✅")
 
     st.audio(audio_data)
-    _,button_pos,_ = st.columns([1,1,1])
-   
-    if button_pos.button(" 🧠 start to analyze ... 👶🏻", use_container_width = True, type = "primary"):
+    _, button_pos, _ = st.columns([1, 1, 1])
+
+    if button_pos.button(" 🧠 start to analyze ... 👶🏻", use_container_width=True, type="primary"):
         with st.spinner("Analyzing ..."):
             time.sleep(1)
             audio_processor = AudioProcessor()
@@ -102,18 +105,19 @@ if audio_data:
             else:
                 st.info("Good News! No baby cry detected!")
 else:
-    
-    image = Image.open("images/Title Slide.png") 
+
+    image = Image.open("images/Title Slide.png")
     new_image = image.resize((1600, 600))
     new_image.putalpha(180)
     st.image(new_image, use_column_width=True)
 
-_,writing_col,_ = st.columns([1.5,2.1,1.5])
+_, writing_col, _ = st.columns([1.5, 2.1, 1.5])
 writing_col.markdown("***⚙️ Powered by Cappella AI & ChatGPT 🤖***")
-_,col1, col2,_ = st.columns([1,1,1,1])
+_, col1, col2, _ = st.columns([1, 1, 1, 1])
 
-cappella_logo = Image.open("./images/Pink (1).png").resize((110,110))
-chatgpt_logo = Image.open("./images/cdnlogo.com_ChatGPT.png").resize((100,100))
+cappella_logo = Image.open("./images/Pink (1).png").resize((110, 110))
+chatgpt_logo = Image.open(
+    "./images/cdnlogo.com_ChatGPT.png").resize((100, 100))
 
 col1.image(cappella_logo)
 col2.image(chatgpt_logo)
