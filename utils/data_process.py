@@ -40,7 +40,7 @@ class AudioProcessor :
         
         self.__resampler = lambda sig, curr_sr : torchaudio.transforms.Resample(curr_sr, sample_rate)(sig)
     
-    def __open_audio_file(self, file_path : str) :
+    def __open_audio_file(self, file_path) :
         sig, sr = torchaudio.load(file_path, normalize=True)
         return (sig, sr)
     
