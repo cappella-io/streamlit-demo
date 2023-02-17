@@ -2,6 +2,6 @@
 
 **/__pycache__/**
 
-.*
+.demo_env
 *.wav
 main.py
