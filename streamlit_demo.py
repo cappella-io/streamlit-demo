@@ -53,7 +53,7 @@ if audio_data:
     st.audio(audio_data)
     _,button_pos,_ = st.columns([1,1,1])
    
-    if button_pos.button(" 🧠 start analyze 👶🏻", use_container_width = True, type = "primary"):
+    if button_pos.button(" 🧠 start to analyze ... 👶🏻", use_container_width = True, type = "primary"):
         with st.spinner("Analyzing ..."):
             time.sleep(1)
             audio_processor = AudioProcessor()
