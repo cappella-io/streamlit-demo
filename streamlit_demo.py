@@ -40,10 +40,14 @@ audio_data = col1.file_uploader(label="upload here", type=[
 
 if audio_data:
     try:
-        torchaudio.load(audio_data)
-    except:
+        if audio_data.type == "audio/mpeg" :
+            torchaudio.load(audio_data, format = "mp3")
+        else :
+            torchaudio.load(audio_data)
+    except Exception as e:
+        print(e)
         st.error("Uploading failed ! Please check your uploaded audio data source.", icon="🚨")
-        st.image("images/Title Slide.png")
+        st.image(new_image, use_column_width=True)
         st.stop()
     col2.markdown(" ")
     col2.markdown(" ")
