@@ -40,12 +40,8 @@ audio_data = col1.file_uploader(label="upload here", type=[
 
 if audio_data:
     try:
-        if audio_data.type == "audio/mpeg":
-
-            torchaudio.info(audio_data)
-        else:
-
-            torchaudio.info(audio_data)
+        
+        torchaudio.info(audio_data)
     except Exception as e:
         print(e)
         st.error(
