@@ -41,7 +41,8 @@ audio_data = col1.file_uploader(label="upload here", type=[
 if audio_data:
     try:
         
-        torchaudio.info(audio_data)
+        
+        a = 1
     except Exception as e:
         print(e)
         st.error(
