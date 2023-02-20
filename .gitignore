@@ -4,4 +4,5 @@
 
 .demo_env
 *.wav
+*.ipynb
 main.py
