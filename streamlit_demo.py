@@ -72,7 +72,7 @@ if gap_h == "0" :
 else :
     gap_string = f"{gap_h} hours {gap_min} minutes"
 
-pre_health_conditions = header_col2.text_area(":pill: Add pre-existing health conditions", value = "no previous health conditions")
+pre_health_conditions = header_col2.text_area(":pill: Add pre-existing health conditions", value = "no pre-existing health conditions")
 #upload audio data from user
 audio_data = header_col1.file_uploader(label="upload here", type=[
                                 "wav", "mp3"], label_visibility='hidden')
