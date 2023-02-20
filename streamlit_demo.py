@@ -43,13 +43,23 @@ birthday = header_col2.date_input(
 )
 baby_age = (datetime.now().date() - birthday).days
 #header_col1.image("./images/capella circle.png", width=175)
+
+times = []
+for hours in range(0, 24):
+  for minutes in range(0, 60):
+    times.append(time(hours, minutes))
+
  
 last_feeding_t_col, curr_t_col = header_col2.columns([1,1])
-last_feeding_time = last_feeding_t_col.time_input(
+last_feeding_time = last_feeding_t_col.selectbox(
     ":alarm_clock: Enter last feeding time", 
-    time(0,0)
+    times,
+    format_func=lambda t: t.strftime("%H:%M")
 )
-curr_time = curr_t_col.time_input(":mantelpiece_clock: Adjust time to your timezone")
+
+curr_time = curr_t_col.selectbox(":mantelpiece_clock: Adjust time to your timezone", times, key="time", format_func=lambda t: t.strftime("%H:%M"))
+print(curr_time)
+#curr_time = curr_t_col.time_input(":mantelpiece_clock: Adjust time to your timezone")
 
 curr_time = datetime.combine(date.today(), curr_time)
 last_feeding_time = datetime.combine(date.today(), last_feeding_time)
