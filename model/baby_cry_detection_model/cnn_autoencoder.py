@@ -177,6 +177,6 @@ class CNNAutoEncoder(nn.Module) :
         if type == "positive" :
             return loss 
         elif type == "negative" :
-            return -loss 
+            return 1/loss 
         else :
             raise Exception(f"{type} type of data is not supported")
