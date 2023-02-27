@@ -84,7 +84,7 @@ pre_health_conditions = header_col2.text_area(":pill: Add pre-existing health co
 option_container = header_col1.container()
 upload_info_placeholder = header_col1.empty()
 option = option_container.selectbox(
-    "How would you like to upload audio data?",
+    "How would you like to upload audio data to analyze?",
     ("Please choose one ","From local files", "Record on device"),
     index = 0,
     on_change = lambda :  upload_info_placeholder.empty()
@@ -120,7 +120,6 @@ if ".tmp_audio.wav" in os.listdir():
         st.stop()
 
     #upload_info_placeholder.success("Uploading successful!", icon="✅")
-    print(audio_data)
     st.audio(audio_data)
     
     check = st.checkbox("Review and confirm the birth date and time info to UNLOCK analysis")
@@ -148,8 +147,7 @@ if ".tmp_audio.wav" in os.listdir():
                     last_feeding_t=gap_string,
                     pre_conditions=pre_health_conditions
                 )
-                #chatbot = Chatbot(api_key=st.secrets["openai_credentials"]["personal_api_key"])
-                chatbot = Chatbot(api_key="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")
+                chatbot = Chatbot(api_key=st.secrets["openai_credentials"]["personal_api_key"])
                 answer = chatbot.query(prompt=prompt)
                 st.markdown("## Advice from AI")
                 st.markdown(answer)
