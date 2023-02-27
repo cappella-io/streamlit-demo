@@ -6,10 +6,12 @@ from gpt3_based_model.chatbot import Chatbot
 from model.inference import inferencer
 
 import streamlit as st
+from st_custom_components import st_audiorec
 import time as built_in_time
 from datetime import datetime, date, time, timedelta
 import torchaudio
 from PIL import Image
+import numpy as np
 import os 
 
 
@@ -36,7 +38,7 @@ st.image(header_image, use_column_width=True)
 
 header_col1, header_col2 = st.columns([2, 1])
 
-header_col1.title("Welcome to Mini-Cappella ")
+header_col1.markdown("## Welcome to Mini-Cappella ")
 header_col1.markdown(
     "&emsp;&emsp;*-- Your personal baby-caring assistant*", unsafe_allow_html=True)
 
@@ -93,19 +95,23 @@ _,record_button_pos, _ = option_container.columns([1,1,1])
 if option == "From local files":
     upload_info_placeholder.empty()
     audio_data = option_container.file_uploader(label = "upload", type = ["wav","mp3"], label_visibility = "hidden")
-    if audio_data is not None : 
-        os.system("rm .tmp_audio.wav")
+
+    if audio_data : 
+        
         with open(".tmp_audio.wav", "wb") as f:
             f.write(audio_data.getbuffer())
         upload_info_placeholder.success("Uploading successful!", icon="✅")
+        header_col1.audio(audio_data)
 
 if option == "Record on device" :
     
-    record_button = record_button_pos.button("Start recording")
-    if record_button : 
+    with option_container : 
         os.system("rm .tmp_audio.wav")
-        record_sound(option_container,tmp_audio_file_path=".tmp_audio.wav")
-        upload_info_placeholder.success("Uploading successful!", icon="✅")
+        wav_audio_data = st_audiorec()
+        if wav_audio_data :
+            with open(".tmp_audio.wav", "wb") as f:
+                f.write(wav_audio_data)
+            upload_info_placeholder.success("Uploading successful!", icon="✅")
 
 ###########################################################################################################################################################
 
@@ -120,7 +126,7 @@ if ".tmp_audio.wav" in os.listdir():
         st.stop()
 
     #upload_info_placeholder.success("Uploading successful!", icon="✅")
-    st.audio(audio_data)
+    #st.audio(audio_data)
     
     check = st.checkbox("Review and confirm the birth date and time info to UNLOCK analysis")
     _, button_pos, _ = st.columns([1, 1, 1])
