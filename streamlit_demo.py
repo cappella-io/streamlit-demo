@@ -157,8 +157,7 @@ if ".tmp_audio.wav" in os.listdir() :
                     last_feeding_t=gap_string,
                     pre_conditions=pre_health_conditions
                 )
-                #chatbot = Chatbot(api_key=st.secrets["openai_credentials"]["personal_api_key"])
-                chatbot = Chatbot(api_key="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")
+                chatbot = Chatbot(api_key=st.secrets["openai_credentials"]["personal_api_key"])
                 answer = chatbot.query(prompt=prompt)
                 place_holder = st.empty()
                 with place_holder.container() : 
