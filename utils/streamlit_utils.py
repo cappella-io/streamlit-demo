@@ -43,13 +43,15 @@ def plot_class_distribution(class_distribuiton, position = st) :
 
     position.pyplot(fig)
 
+@st.cache_data
 def resize_image(image_path, width, height, alpha = 0) :
     
     image = Image.open(image_path)
     new_image = image.resize((width, height))
-    new_image.putalpha(alpha)
+    if alpha : 
+        new_image.putalpha(alpha)
     
-    return image 
+    return new_image 
 
 def record_sound(
     position : st,
