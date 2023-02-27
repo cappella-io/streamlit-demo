@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt      
 import streamlit as st
 from PIL import Image
+import pyaudio 
+import wave
+
 plt.rcParams['axes.edgecolor'] = '#333F4B'
 plt.rcParams['axes.linewidth'] = 0.8
 plt.rcParams['xtick.color'] = '#333F4B'
@@ -47,3 +50,57 @@ def resize_image(image_path, width, height, alpha = 0) :
     new_image.putalpha(alpha)
     
     return image 
+
+def record_sound(
+    position : st,
+    length : int = 5,
+    n_channels : int = 1,
+    buffer_size : int = 1024,
+    sample_rate : int = 22050,
+    tmp_audio_file_path : str = ".tmp_audio.wav",
+    
+    
+):
+    
+    progress_bar = position.progress(0)
+    
+    FORMAT = pyaudio.paInt16
+    N_CHANNEL = n_channels
+    CHUNKSIZE = buffer_size 
+    MAX_SECONDS = length
+    SAMPLE_RATE = sample_rate
+
+    p = pyaudio.PyAudio()
+    stream = p.open(
+        format=FORMAT,
+        channels=N_CHANNEL,
+        rate = SAMPLE_RATE,
+        input = True,
+        frames_per_buffer=CHUNKSIZE,
+    )
+    
+    n_chunk_per_second = round(SAMPLE_RATE / CHUNKSIZE)
+    frame_bytes = []
+    frame_arrays = []
+    for i in range(MAX_SECONDS) :
+        for j in range(n_chunk_per_second) : 
+            frame_byte = stream.read(CHUNKSIZE)
+            frame_array = list(np.fromstring(frame_byte))
+            frame_bytes.append(frame_byte)
+            frame_arrays.extend(frame_array)
+        
+        progress_bar.progress(int((i + 1) / MAX_SECONDS * 100))
+    
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+
+    sound_file = wave.open(tmp_audio_file_path, "wb")
+    sound_file.setnchannels(1)
+    sound_file.setsampwidth(p.get_sample_size(FORMAT))
+    sound_file.setframerate(SAMPLE_RATE)
+    sound_file.writeframes(b"".join(frame_bytes))
+    sound_file.close()
+    
+    
+    
