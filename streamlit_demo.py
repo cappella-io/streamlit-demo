@@ -157,9 +157,7 @@ if ".tmp_audio.wav" in os.listdir() :
                     last_feeding_t=gap_string,
                     pre_conditions=pre_health_conditions
                 )
-                #chatbot = Chatbot(api_key=st.secrets["openai_credentials"]["personal_api_key"])
-                chatbot = Chatbot(api_key="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")
-                answer = chatbot.query(prompt=prompt)
+                chatbot = Chatbot(api_key=st.secrets["openai_credentials"]["personal_api_key"])                answer = chatbot.query(prompt=prompt)
                 place_holder = st.empty()
                 with place_holder.container() : 
                     st.markdown(f"According to the uploaded audio, ***{most_likely_reason.capitalize()}*** is concluded as the most likely reason by ***AI experts from Cappella***. Here are some advice from your personal ***Cappella AI-assistant***.")
