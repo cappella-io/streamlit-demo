@@ -157,16 +157,18 @@ if ".tmp_audio.wav" in os.listdir() :
                     last_feeding_t=gap_string,
                     pre_conditions=pre_health_conditions
                 )
-                chatbot = Chatbot(api_key=st.secrets["openai_credentials"]["personal_api_key"])
+                #chatbot = Chatbot(api_key=st.secrets["openai_credentials"]["personal_api_key"])
+                chatbot = Chatbot(api_key="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")
                 answer = chatbot.query(prompt=prompt)
                 place_holder = st.empty()
                 with place_holder.container() : 
-                    st.markdown("## Advice from AI")
+                    st.markdown(f"According to the uploaded audio, ***{most_likely_reason.capitalize()}*** is concluded as the most likely reason by ***AI experts from Cappella***. Here are some advice from your personal ***Cappella AI-assistant***.")
+                    #st.markdown("## Advice from AI")
                     st.markdown(answer)
                     amazon_link = get_amazon_link(class_distribution=class_distribuiton,baby_age=baby_age)
                     st.markdown(f"[:shopping_trolley: click here for recommended items in Amazon :shopping_bags: ]({amazon_link})")
                     
-                    plot_class_distribution(class_distribuiton, st)
+                    #plot_class_distribution(class_distribuiton, st)
                 #print(answer)
                 
             else:
