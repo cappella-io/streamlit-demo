@@ -60,7 +60,7 @@ last_feeding_time = last_feeding_t_col.selectbox(
     format_func=lambda t: t.strftime("%H:%M")
 )
 
-curr_time = curr_t_col.selectbox(":mantelpiece_clock: Adjust time to your timezone", times, key="time", format_func=lambda t: t.strftime("%H:%M"))
+curr_time = curr_t_col.selectbox(":mantelpiece_clock: Enter the current time", times, key="time", format_func=lambda t: t.strftime("%H:%M"))
 
 curr_time = datetime.combine(date.today(), curr_time)
 last_feeding_time = datetime.combine(date.today(), last_feeding_time)
@@ -80,7 +80,7 @@ pre_health_conditions = header_col2.text_area(":pill: Add pre-existing health co
 option_container = header_col1.container()
 upload_info_placeholder = header_col1.empty()
 option = option_container.selectbox(
-    "How would you like to upload audio data to analyze?",
+    " :computer: How would you like to upload audio data to analyze? :inbox_tray:",
     ("Please choose one ","From local files", "Record on device"),
     index = 0,
     on_change = lambda : upload_info_placeholder.empty()  
