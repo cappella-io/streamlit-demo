@@ -15,6 +15,7 @@ import os
 
 st.set_page_config(
     page_icon="./images/Cappella_logo.png",
+    page_title = "Cappella-mini-demo",
     layout="centered"
 )
 
@@ -22,7 +23,7 @@ st.set_page_config(
 header_image = resize_image(
     image_path="./images/LinkedIn cover.png",
     width=1600,
-    height=200,
+    height=300,
     alpha=240
 )
 st.image(header_image, use_column_width=True)
